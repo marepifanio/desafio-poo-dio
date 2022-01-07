@@ -1,9 +1,11 @@
-import br.com.dio.desafio.dominio.Conteudo;
-import br.com.dio.desafio.dominio.Curso;
-import br.com.dio.desafio.dominio.Mentoria;
+import br.com.dio.desafio.dominio.*;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args){
@@ -21,21 +23,52 @@ public class Main {
         Mentoria mentoria = new Mentoria();
         mentoria.setTitulo("Como criar um portifólio top");
         mentoria.setDescricao("Descrição da mentoria");
-        System.out.print("Data: ");
-        LocalDate date = LocalDate.now();
+        mentoria.setData(LocalDate.now());
 
-        mentoria.setData(date);
+//        System.out.println(curso1);
+//        System.out.println(curso2);
+//        System.out.println(mentoria);
 
-        System.out.println(curso1);
-        System.out.println(curso2);
-        System.out.println(mentoria);
+        Bootcamp bootcamp = new Bootcamp();
+        bootcamp.setNome("Bootcamp Java Developer");
+        bootcamp.setDescricao("Descrição Bootcamp Java Developer");
+        bootcamp.getConteudos().addAll(Arrays.asList(curso1, curso2, mentoria));
 
-        Conteudo conteudo1 = curso1;
-        Conteudo conteudo2 = mentoria;
+        Dev devMarcelo = new Dev();
+        devMarcelo.setNome("Marcelo");
+        System.out.println("Conteúdos Inscritos Marcelo: " + devMarcelo.getConteudosInscritos());
+        System.out.println("XP Marcelo: " + devMarcelo.calcularXp());
 
-        System.out.println(conteudo1.calculaXp());
-        System.out.println(conteudo2.calculaXp());
+        Dev devCamila = new Dev();
+        devCamila.setNome("Camila");
+        System.out.println("\nConteúdos Inscritos Camila: " + devCamila.getConteudosInscritos());
+        System.out.println("XP Camila: " + devCamila.calcularXp());
 
+        System.out.println("\n---------------Inscrevendo Devs----------------");
+
+        devCamila.inscreverBootcamp(bootcamp);
+        devMarcelo.inscreverBootcamp(bootcamp);
+
+        System.out.println("Conteúdos Inscritos Marcelo: " + devMarcelo.getConteudosInscritos());
+        System.out.println("XP Marcelo: " + devMarcelo.calcularXp());
+
+        System.out.println("\nConteúdos Inscritos Camila: " + devCamila.getConteudosInscritos());
+        System.out.println("XP Camila: " + devCamila.calcularXp());
+
+
+        System.out.println("\n----------------Progredindo no Bootcamp----------------");
+
+        devCamila.progredir();
+        devCamila.progredir();
+        devMarcelo.progredir();
+
+        System.out.println("Conteúdos Inscritos Marcelo: " + devMarcelo.getConteudosInscritos());
+        System.out.println("Conteúdos Concluídos Marcelo: " + devMarcelo.getConteudosConcluidos());
+        System.out.println("XP Marcelo: " + devMarcelo.calcularXp());
+
+        System.out.println("\nConteúdos Inscritos Camila: " + devCamila.getConteudosInscritos());
+        System.out.println("Conteúdos Concluídos Camila: " + devCamila.getConteudosConcluidos());
+        System.out.println("XP Camila: " + devCamila.calcularXp());
 
     }
 }
